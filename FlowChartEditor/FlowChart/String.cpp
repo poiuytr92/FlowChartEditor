@@ -2381,18 +2381,25 @@ Long String::FindUntilLength(char(*characters)) {
 Long String::CountLongestLine() {
 	Long characterCount = 0;
 	Long longestCharacterCount = 0;
+	Long enterCount = 0;
 
 	//1. 개수만큼 반복하다.
 	Long i = 0;
 	while (i < this->length) {
 		String character = this->front[i];
-		if (character != '\n') { //1.1. 개행 문자가 아니면 문자개수를 세다.
-			characterCount++;
-		}
-		else if (characterCount > longestCharacterCount) { //1.2. 개행 문자이고 문자 개수가 최대문자개수보다 크면 최대문자개수를 구하다.
+		//1.1. 개행 문자가 아니면 문자개수를 세다.
+		//1.2. 개행 문자이면 개행 문자 개수를 세다.
+		(character != '\n') ? (characterCount++) : (enterCount++);
+		//1.3. 줄이 바꼈고 문자 개수가 최대문자개수보다 크면 최대문자개수를 구하다.
+		if (character == '\n' && characterCount > longestCharacterCount) { 
 			longestCharacterCount = characterCount;
+			characterCount = 0;
 		}
 		i++;
+	}
+	
+	if (enterCount < 1) {
+		longestCharacterCount = characterCount;
 	}
 
 	return longestCharacterCount;

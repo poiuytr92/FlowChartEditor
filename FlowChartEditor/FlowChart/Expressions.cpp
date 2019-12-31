@@ -324,13 +324,16 @@ bool ReSizeExpression::Evaluate() {
 	bool ret = false;
 
 	DrawingPaper *drawingPaper = static_cast<DrawingPaper*>(this->editor->windows[0]);
-	Shape *currentShape = dynamic_cast<FlowChart*>(drawingPaper->flowChart)->GetAt(drawingPaper->indexOfSelected);
-	LOGFONT font = this->editor->font->GetFont();
-	Long leastWidth = currentShape->GetContents().CountLongestLine() * font.lfHeight;
-	Long leastHeight = currentShape->GetContents().CountLine() * font.lfHeight;
+	if (drawingPaper->indexOfSelected != -1) { //오류 방지
+		Shape *currentShape = dynamic_cast<FlowChart*>(drawingPaper->flowChart)->GetAt(drawingPaper->indexOfSelected);
+		LOGFONT font = this->editor->font->GetFont();
+		Long leastWidth = currentShape->GetContents().CountLongestLine() * (font.lfHeight/2 * -1)
+			+ currentShape->GetHeight();
+		Long leastHeight = currentShape->GetContents().CountLine() * (font.lfHeight * -1);
 
-	ret = this->expressions[0]->Evaluate(currentShape->GetWidth(), leastWidth)
-		&& this->expressions[0]->Evaluate(currentShape->GetHeight(), leastHeight);
+		ret = this->expressions[0]->Evaluate(currentShape->GetWidth(), leastWidth)
+			&& this->expressions[0]->Evaluate(currentShape->GetHeight(), leastHeight);
+	}
 
 	return ret;
 }

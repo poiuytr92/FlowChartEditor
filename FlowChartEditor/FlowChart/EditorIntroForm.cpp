@@ -54,10 +54,10 @@ void EditorIntroForm::OnPaint() {
 
 	logFont.lfHeight = -14;
 	logFont.lfWidth = -7;
-
+#if 0
 	font->CreateFontIndirectA(&logFont);
 	CFont *oldFont = (CFont*)dc.SelectObject(font);
-
+#endif
 	CRect rect2(10, 10, 120, 120);
 	//dc.DrawText("³ª¾Æ ÄÚÄª", rect2, DT_LEFT);
 #if 0

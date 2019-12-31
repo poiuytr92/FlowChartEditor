@@ -762,7 +762,7 @@ void IterationMakeTutorial::Execute() {
 	Long(*indexes);
 	flowChart->GetSelecteds(&indexes, &count);
 
-	Shape *currentShape = flowChart->GetAt(indexes[0]);
+	Shape *currentShape = flowChart->GetAt(indexes[2]);
 	Long positionX;
 	Long positionY;
 	if (dynamic_cast<DrawingPaper*>(editor->windows[0])->scrollController != NULL) {
